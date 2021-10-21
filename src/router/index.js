@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
+import Home from '../views/Home.vue'
 // import Profile from '../views/Profile.vue'
 // import Post from '../views/Post.vue'
 import BaseLayout from "../components/homeworks/Unit05/BaseLayout";
@@ -14,14 +14,30 @@ import Revenue from "../components/homeworks/Unit05/Revenue";
 import Inventory from "../components/homeworks/Unit05/Inventory";
 import System from "../components/homeworks/Unit05/System";
 import Login from "../components/homeworks/Unit05/Login";
+import ListProduct from "../components/lesson-group/lesson3/ListProduct";
+import ProductDetail from "../components/lesson-group/lesson3/ProductDetail";
+import Todo from "../views/Todo";
+import Exercise from "../views/Exercise";
+import Cart from "../views/Cart";
+import Drag from "../components/lesson-group/lesson4/Drag";
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/drag',
+    name: 'Drag',
+    component: Drag
+  },
+  {
+    path: '/todo',
+    name: 'Todo',
+    component: Todo
+  },
   // {
   //   path: '/user/:id',
   //   name: 'User',
@@ -92,6 +108,28 @@ const routes = [
     path: '/system-setting',
     name : 'System',
     component: System
+  },
+  {
+    path: '/danh-sach-san-pham',
+    name : 'ListProduct',
+    component: ListProduct
+  },
+  {
+    path: '/chi-tiet-san-pham',
+    name : 'ProductDetail',
+    component: ProductDetail
+  },
+
+    // Unit 07
+  {
+    path: '/homework-7-1',
+    name : 'Cart',
+    component: Cart
+  },
+  {
+    path: '/homework-7-2',
+    name : 'Exercise',
+    component: Exercise
   },
 ]
 

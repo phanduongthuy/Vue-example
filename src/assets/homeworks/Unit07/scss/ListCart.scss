@@ -1,0 +1,44 @@
+.cart{
+  background: #fff;
+  border: 1px solid #2c2c2c;
+  width: 40%;
+  margin-left: 20px;
+  h2 {
+    margin-left: 15px;
+  }
+  .list-cart{
+    height: 400px;
+    text-align: left;
+    table{
+      width: 100%;
+      padding-left: 5px;
+      tr{
+        td{
+          border-bottom: 1px solid gray;
+          padding: 10px 0px;
+          p{
+            margin: 0px;
+          }
+          img{
+            width: 30px;
+          }
+          button{
+            background-color: #f13008;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+          }
+          button:hover{
+            background-color: #b42e56;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .total{
+    text-align: right;
+    margin: 15px;
+  }
+}

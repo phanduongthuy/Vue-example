@@ -1,0 +1,47 @@
+.product{
+  height: 270px;
+  border: 1px solid #2c2c2c;
+  table{
+    border-collapse: collapse;
+    .label-head{
+      background-color: #f2f6fe;
+    }
+    tr{
+      .productName{
+        text-align: left;
+        display: flex;
+        align-items: center;
+        a{
+          text-decoration: none;
+          padding-left: 8px;
+          color: #56a3e7;
+        }
+      }
+      td{
+        height: 36px;
+        padding:5px 15px;
+        border-left: 1px solid #0000000d;
+
+        img{
+          width: 30px;
+        }
+
+        button{
+          background-color: #3db6e3;
+          color: white;
+          border: none;
+          padding: 6px;
+          border-radius: 3px;
+        }
+        button:hover{
+          background-color: #00aaaa;
+          cursor: pointer;
+        }
+      }
+      th{
+        padding: 10px 5px;
+        border: 1px solid #0000000d;
+      }
+    }
+  }
+}
