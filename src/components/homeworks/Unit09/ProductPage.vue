@@ -34,6 +34,24 @@
               width="50">
           </el-table-column>
           <el-table-column
+              label="Ảnh sản phẩm"
+              width="150">
+            <template slot-scope="product">
+              <el-avatar shape="square" v-if="product.row.image"
+                         :size="60"
+                         fit="cover"
+                         :src="`http://vuecourse.zent.edu.vn/storage/${product.row.image}`">
+
+              </el-avatar>
+              <el-avatar shape="square" v-else
+                         :size="70"
+                         fit="cover"
+                         src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+
+              </el-avatar>
+            </template>
+          </el-table-column>
+          <el-table-column
               prop="name"
               label="Tên sản phẩm"
               width="180">
@@ -87,6 +105,9 @@
     </BaseLayout>
     <el-dialog :title="title" :visible.sync="dialogFormVisible">
       <el-form ref="form" label-width="200px">
+        <el-form-item label="Ảnh sản phẩm">
+          <Upload @changeImage="onChangeImage" :url="url"/>
+        </el-form-item>
         <el-form-item label="Tên sản phẩm">
           <el-input v-model="name"></el-input>
         </el-form-item>
@@ -107,11 +128,13 @@
 
 <script>
 import BaseLayout from "./BaseLayout";
+import Upload from "../../upload/Upload";
 import axios from "axios";
 export default {
   name: 'ProductPage',
   components: {
-    BaseLayout
+    BaseLayout,
+    Upload
   },
   data () {
     return {
@@ -140,12 +163,16 @@ export default {
           price: '',
           description: ''
         }
-
       ],
       flag: true,
+      url: '',
+      imageUrl: '',
     }
   },
   methods: {
+    onChangeImage(img) {
+      this.imageUrl = img
+    },
     openDialogAddProduct() {
       this.reset()
       this.dialogFormVisible = true
@@ -154,28 +181,31 @@ export default {
     handleSearch() {
       this.getProducts()
     },
-    openCreateProduct() {
-      this.$router.push({path: '/create-product'})
-    },
     handleEdit(value){
       this.title = 'Cập nhật sản phẩm'
       this.id = value.id
       this.name = value.name
       this.price = value.price
       this.description = value.description
+      this.url = value.image
       this.flag = false
       this.dialogFormVisible = true
     },
     handleUpdate(id) {
-      axios({
-        method: 'post',
-        url: 'http://vuecourse.zent.edu.vn/api/products/' + id,
-        data: {
-          name: this.name,
-          price: this.price,
-          description: this.description
-        }
-      }).then(() => {
+      let formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("price", this.price);
+      formData.append("description", this.description);
+      if(this.imageUrl !== '') {
+        formData.append("image", this.imageUrl);
+      }
+      axios.post('http://vuecourse.zent.edu.vn/api/products/' + id,
+        formData, {
+          headers:
+            {
+              'Content-Type': 'multipart/form-data'
+            }
+        }).then(() => {
         // handle success
         this.reset()
         this.getProducts()
@@ -217,16 +247,22 @@ export default {
 
     },
     onSubmit() {
-      axios({
-        method: 'post',
-        url: 'http://vuecourse.zent.edu.vn/api/products',
-        data: {
-          // image: this.image,
-          name: this.name,
-          price: this.price,
-          description: this.description
+      let formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("price", this.price);
+      formData.append("description", this.description);
+      if(this.imageUrl !== '') {
+        formData.append("image", this.imageUrl);
+      }
+      axios.post('http://vuecourse.zent.edu.vn/api/products',
+        formData,
+  {
+          headers:
+              {
+                'Content-Type': 'multipart/form-data'
+              }
         }
-      }).then(() => {
+      ).then(() => {
         // handle success
         this.reset()
         this.getProducts()
@@ -242,6 +278,8 @@ export default {
       this.getProducts(value)
     },
     reset() {
+      this.imageUrl = ''
+      this.url = ''
       this.name = '',
       this.price = '',
       this.description = '',
@@ -290,6 +328,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .productPage {
   width: 100%;
   .headerContent {
@@ -317,6 +356,9 @@ export default {
   .submit {
     text-align: right;
   }
-}
 
+}
+.hideUpload > div {
+  display: none;
+}
 </style>

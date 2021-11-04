@@ -71,7 +71,7 @@ $colorDefault: #253036;
 $colorHeaderBg: #f2f6fe;
 
 .sideBar {
-  width: 200px;
+  width: 170px;
   height: 100vh;
   background: #001529;
 }
